@@ -23,9 +23,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-//@Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
-//@RestController
 public class RestResponseEntityExceptionHandler 
   extends ResponseEntityExceptionHandler {
 	
@@ -34,36 +32,7 @@ public class RestResponseEntityExceptionHandler
     public void constraintViolationException(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.BAD_REQUEST.value());
     }
-/*
-    
-    // error handle for @Valid
-    @Override
-    protected ResponseEntity<Object>
-    handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                 HttpHeaders headers,
-                                 HttpStatus status, WebRequest request) {
 
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", new Date());
-        body.put("status", status.value());
-
-        //Get all errors
-        List<String> errors = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(x -> x.getDefaultMessage())
-                .collect(Collectors.toList());
-
-        body.put("errors", errors);
-
-        return new ResponseEntity<>(body, headers, status);
-
-        //Map<String, String> fieldErrors = ex.getBindingResult().getFieldErrors().stream().collect(
-        //        Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
-
-    }
-
-   */ 
     
     @ExceptionHandler(ContactNotFoundException.class)
     public final ResponseEntity<Object> handleUserNotFoundException(ContactNotFoundException ex, WebRequest request) {
@@ -153,94 +122,7 @@ public class RestResponseEntityExceptionHandler
 
 		public void setErrors(List<String> errors) {
 			this.errors = errors;
-		}
-	    
-	    
+		}   
 	}
-
-	
-	
-	
- 
-	/*
-    @ExceptionHandler(value 
-      = { Exception.class })
-    protected ResponseEntity<Object> handleIllegalException(
-    		Exception ex, WebRequest request) {
-    	ErrorMessage errorDetails = new ErrorMessage(new Date(), ex.getMessage(),
-    	        request.getDescription(false));
-    	    return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
-    }
-    */
-	/*
-	
-	 @ResponseStatus(HttpStatus.BAD_REQUEST)
-	    @ResponseBody
-	    @ExceptionHandler(MethodArgumentNotValidException.class)
-	    public Error methodArgumentNotValidException(MethodArgumentNotValidException ex) {
-	        BindingResult result = ex.getBindingResult();
-	        List<org.springframework.validation.FieldError> fieldErrors = result.getFieldErrors();
-	        return processFieldErrors(fieldErrors);
-	    }
-
-	  private Error processFieldErrors(List<org.springframework.validation.FieldError> fieldErrors) {
-	        Error error = new Error(HttpStatus.BAD_REQUEST.value(), "validation error");
-	        for (org.springframework.validation.FieldError fieldError: fieldErrors) {
-	            error.addFieldError(fieldError.getObjectName(), fieldError.getField(), fieldError.getDefaultMessage());
-	        }
-	        return error;
-	    }
-	  
-    
-    static class Error {
-        private final int status;
-        private final String message;
-        private List<FieldError> fieldErrors = new ArrayList<>();
-
-        Error(int status, String message) {
-            this.status = status;
-            this.message = message;
-        }
-
-        public int getStatus() {
-            return status;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void addFieldError(String objectName, String path, String message) {
-            FieldError error = new FieldError(objectName, path, message);
-            fieldErrors.add(error);
-        }
-
-        public List<FieldError> getFieldErrors() {
-            return fieldErrors;
-        }
-    }
-    */
-	
-	/*
-	@Override
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(
-	  MethodArgumentNotValidException ex, 
-	  HttpHeaders headers, 
-	  HttpStatus status, 
-	  WebRequest request) {
-	    List<String> errors = new ArrayList<String>();
-	    for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-	        errors.add(error.getField() + ": " + error.getDefaultMessage());
-	    }
-	    for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
-	        errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
-	    }
-	     
-	    ApiError apiError = 
-	      new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
-	    return handleExceptionInternal(
-	      ex, apiError, headers, apiError.getStatus(), request);
-	}
-	*/
 }
 

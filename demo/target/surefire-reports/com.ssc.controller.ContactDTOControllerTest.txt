@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.ssc.controller.ContactDTOControllerTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.131 s - in com.ssc.controller.ContactDTOControllerTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 18.379 s - in com.ssc.controller.ContactDTOControllerTest
