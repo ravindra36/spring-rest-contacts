@@ -30,6 +30,7 @@ Please test with given json data:
   "email": "harold.gilkey@yahoo.com"
 }   
 
-     
+    
+Swagger UI --> http://localhost:8080/swagger-ui.html
 
 
